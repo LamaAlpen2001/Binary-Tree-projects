@@ -1,8 +1,7 @@
-
 public class Morsecode
 {
-    private BinaryTree<String> b;
-    private BinaryTree<String> morsecodeBaum;
+    private BinaryTree<String> morsecodebaum;
+    
     public Morsecode()
     {
         System.out.print("Danke, das sie sich für diese Implementation des Morsecodebaums von E&P.inc entschieden haben");
@@ -33,5 +32,32 @@ public class Morsecode
         BinaryTree<String> eBaum= new BinaryTree("E", iBaum, aBaum);
         BinaryTree<String> tBaum= new BinaryTree("T", nBaum, mBaum);
         BinaryTree<String> morsecodebaum= new BinaryTree("#", eBaum, tBaum);
+    }
+    
+    public void morsezeichenDecodieren(BinaryTree b, String pCode)
+    {
+      int i = 0;    
+      Stack<Character> s = new Stack<Character>();
+      while(i< pCode.length()+1){
+        s.push(CharAt(i));
+        i++;
+      }
+      decodierer();
+    }
+    
+    public void decodierer(){
+      if(s.isEmpty()){
+        return morsecodebaum.getContent(); 
+       } 
+      else{
+       if(s.top() == '.'){
+         s.pop();
+         ausfuehren(morsecodebaum.getLeftTree());
+       }
+       if(s.top() == '_'){
+         s.pop();
+         ausfuehren(b.getRightTree);
+       } 
+      }
     }
 }
