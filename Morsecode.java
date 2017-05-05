@@ -1,6 +1,7 @@
 public class Morsecode
 {
     private BinaryTree<String> morsecodebaum;
+    private Stack<Character> s;
     
     public Morsecode()
     {
@@ -34,30 +35,28 @@ public class Morsecode
         BinaryTree<String> morsecodebaum= new BinaryTree("#", eBaum, tBaum);
     }
     
-    public void morsezeichenDecodieren(BinaryTree b, String pCode)
+    public void morsezeichenDecodieren(String pCode)
     {
       int i = 0;    
       Stack<Character> s = new Stack<Character>();
       while(i< pCode.length()+1){
-        s.push(CharAt(i));
+        s.push(pCode.charAt(i));
         i++;
       }
-      decodierer();
+      decodierer(morsecodebaum);
     }
     
-    public void decodierer(){
+    public String decodierer(BinaryTree<String> morsecodebaum){
       if(s.isEmpty()){
         return morsecodebaum.getContent(); 
        } 
-      else{
-       if(s.top() == '.'){
+      if(s.top() == '.'){
          s.pop();
-         ausfuehren(morsecodebaum.getLeftTree());
-       }
-       if(s.top() == '_'){
-         s.pop();
-         ausfuehren(b.getRightTree);
-       } 
+         return decodierer(morsecodebaum.getLeftTree());
       }
-    }
+      else{
+         s.pop();
+         return decodierer(morsecodebaum.getRightTree());
+      } 
+      }
 }
