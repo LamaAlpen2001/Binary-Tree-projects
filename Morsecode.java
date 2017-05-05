@@ -5,7 +5,7 @@ public class Morsecode
     
     public Morsecode()
     {
-        System.out.print("Danke, das sie sich für diese Implementation des Morsecodebaums von E&P.inc entschieden haben");
+        System.out.print("Danke, dass sie sich für diese Implementation des Morsecodebaums von E&P.inc entschieden haben");
         BinaryTree<String> hBaum= new BinaryTree("H");
         BinaryTree<String> vBaum= new BinaryTree("V");
         BinaryTree<String> fBaum= new BinaryTree("F");
@@ -32,31 +32,37 @@ public class Morsecode
         BinaryTree<String> mBaum= new BinaryTree("M", gBaum, oBaum);
         BinaryTree<String> eBaum= new BinaryTree("E", iBaum, aBaum);
         BinaryTree<String> tBaum= new BinaryTree("T", nBaum, mBaum);
-        BinaryTree<String> morsecodebaum= new BinaryTree("#", eBaum, tBaum);
-    }
+        morsecodebaum= new BinaryTree("#", eBaum, tBaum);
+        Stack<Character> s = new Stack<Character>();
+        
+       }
     
-    public void morsezeichenDecodieren(String pCode)
-    {
-      int i = 0;    
-      Stack<Character> s = new Stack<Character>();
-      while(i< pCode.length()+1){
-        s.push(pCode.charAt(i));
-        i++;
-      }
-      decodierer(morsecodebaum);
-    }
+    public void morsedecode(String pCode){
+     System.out.println(decodierer(morsecodebaum, pCode));
+    }   
     
-    public String decodierer(BinaryTree<String> morsecodebaum){
-      if(s.isEmpty()){
+    
+    public String decodierer(BinaryTree<String> morsecodebaum, String pCode){
+      if(pCode.length() == 0){
         return morsecodebaum.getContent(); 
        } 
-      if(s.top() == '.'){
-         s.pop();
-         return decodierer(morsecodebaum.getLeftTree());
+      if(pCode.charAt(0) == '.'){
+         return decodierer(morsecodebaum.getLeftTree(), pCode.substring(1));
       }
       else{
-         s.pop();
-         return decodierer(morsecodebaum.getRightTree());
+        return decodierer(morsecodebaum.getRightTree(), pCode.substring(1));
       } 
-      }
+    }
+    
+     public void extendedDecodierer(String pCode){
+       int i =0;
+       int temp = 0;
+       while(i< pCode.length()){
+           if(pCode.charAt(i)==' '){
+              System.out.print(decodierer(morsecodebaum, pCode.substring(temp,i)));
+              temp = i+1;
+           }
+           i++;
+       }  
+    }
 }
